@@ -24,7 +24,7 @@ func backwards(xs []int) func(func(i int, x int) bool) {
 func filter(array []int, filterFn func(item int) bool) func(func(index int, item int) bool) {
 	return func(yield func(index int, item int) bool) {
 		for index, item := range array {
-			if !filterFn(item) {
+			if filterFn(item) {
 				// if the iterator receives a 'break' statement, it will receive 'false'
 				// and should no longer continue
 				if !yield(index, item) {
@@ -61,7 +61,7 @@ func Parallel[E any](events []E) func(func (int, E) bool) {
 }
 
 func isOdd(n int) bool {
-	return n % 2 == 0
+	return n % 2 != 0
 }
 
 func main() {
